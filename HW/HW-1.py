@@ -42,8 +42,8 @@ if __name__ == '__main__':
     assert parse_cookie('name=Dima;age=28;') == {'name': 'Dima', 'age': '28'}
     assert parse_cookie('name=Dima=User;age=28;') == {'name': 'Dima=User', 'age': '28'}
     assert parse_cookie('name=Dima=User=Name;age=28;') == {'name': 'Dima=User=Name', 'age': '28'}
-    assert parse_cookie('name=Name;age=99;bday=01.01.1920') == {'name': 'Name', 'age': '99',
-                                                                    'bday': '01.01.1920'}
-    assert parse_cookie('name=Name;bday=01.01.1920;email=name@mail.com') == {'name': 'Name', 'bday': '01.01.1920',
-                                                                    'email': 'name@mail.com'}
+    assert parse_cookie('bday=01.01.1920') == {'bday': '01.01.1920'}
+    assert parse_cookie('bday=01.01.1920;age=99;') == {'bday': '01.01.1920', 'age': '99'}
+    assert parse_cookie('age=99;bday=01.01.1920;name=Name') == {'age': '99', 'bday': '01.01.1920', 'name': 'Name'}
+    assert parse_cookie('email=name@mail.com;bday=01.01.1920;') == {'email': 'name@mail.com', 'bday': '01.01.1920'}
     print('Ok2')
