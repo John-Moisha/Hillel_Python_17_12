@@ -2,7 +2,7 @@ import math
 import string
 import random
 import re
-from datetime import date
+from datetime import datetime
 
 def generate_password(length: int) -> str:
     """
@@ -146,21 +146,10 @@ def days_diff(start_date: str, end_date: str) -> int:
     найти разницу между двумя датами
     """
 
-    sdt = start_date.split('/')
-    edt = end_date.split('/')
-    nsdt = date(int(sdt[2]), int(sdt[1]), int(sdt[0]))
-    nedt = date(int(edt[2]), int(edt[1]), int(edt[0]))
-    raznica = nedt - nsdt
+    sdt = datetime.strptime(start_date, "%d-%m-%Y")
+    edt = datetime.strptime(end_date, "%d-%m-%Y")
+    return (edt - sdt).days
 
-    return str(raznica).split()[0] + " Дней"
-    # try:
-    #     date(sdt[0], sdt[1], sdt[2])
-    # except:
-    #     return 'не коректно введина дата'
-    # days = int(edt[0]) - int(sdt[0])
-    # mons = int(edt[1]) - int(sdt[1])
-    # years = int(edt[2]) - int(sdt[2])
-    # return days + mons*30 + years*365
 sdt = '01/01/2009'
 edt = '01/01/2010'
 print('09 Days:', days_diff(sdt, edt))
