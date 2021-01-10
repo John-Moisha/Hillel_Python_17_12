@@ -35,15 +35,13 @@ def lucky_number(ticket: str) -> bool:
     """
     total1 = 0
     total2 = 0
-    part_1 = ticket[:3]
-    part_2 = ticket[3:]
-    for _ in range(0, len(part_1)):
-        total1 = total1 + int(part_1[_])
-    for _ in range(0, len(part_2)):
-        total2 = total2 + int(part_2[_])
-    return True if total1 == total2 else False
+    for _ in ticket[:3]:
+        total1 += int(_)
+    for _ in ticket[3:]:
+        total2 += int(_)
+    return total1 == total2
 
-print('03. lucky_number:', lucky_number('113321'))
+print('03. lucky_number:', lucky_number('123322'))
 
 
 def fizz_buzz(num: int) -> str:
@@ -83,15 +81,18 @@ def password_is_strong(password) -> bool:
               re.search('[\W]', pw),
               len_pass]
     if all(result):
-        return 'Pass is Strong'
+        return 'Пароль нормальный'
     return ("Пароль не надежный! : "+
             "добавь маленькие буквы, "*(result[0] is None) +
             "добавь большие буквы, "*(result[1] is None) +
             "добавь цифры, "*(result[2] is None) +
             "добавь спец. символы, "*(result[3] is None) +
-            "увелич длины, "*(result[4] is None) +
+            "увелич длину, "*(result[4] is None) +
              "после чего, попробуйте еще!")
-print('05. PW_is_Strong:', password_is_strong('qwe!Q3'))
+
+# в задании возврат boll, если очень критично перепешу
+
+print('05. PW_is_Strong:', password_is_strong('qw;112e!Q3'))
 
 
 
@@ -125,7 +126,7 @@ def decrypt_message(message: str) -> str:
 
 print('07. Decryp_message:', decrypt_message('Jgnnq'))
 
-def volume_of_sphere(radius: float) -> str:
+def volume_of_sphere(radius: float) -> float:
     """
     Volume of a Sphere
     на вход принимаем радиус сферы.
@@ -135,8 +136,8 @@ def volume_of_sphere(radius: float) -> str:
     r = radius
     pi = math.pi
     result = (4 / 3) * pi * r ** 3
-
-    return f"V сферы, с r={r} Будет = {result:.{2}f}"
+    return float('%.2f' % result)
+    # return f"V сферы, с r={r} Будет = {result:.{2}f}
 
 print('08. V-sphere:',volume_of_sphere(10))
 
@@ -145,13 +146,13 @@ def days_diff(start_date: str, end_date: str) -> int:
     calculate number of days between two dates.
     найти разницу между двумя датами
     """
-
-    sdt = datetime.strptime(start_date, "%d-%m-%Y")
-    edt = datetime.strptime(end_date, "%d-%m-%Y")
+    format_mask = "%d-%m-%Y"
+    sdt = datetime.strptime(start_date, format_mask)
+    edt = datetime.strptime(end_date, format_mask)
     return (edt - sdt).days
 
-sdt = '01/01/2009'
-edt = '01/01/2010'
+sdt = '01-01-2020'
+edt = '1-01-2021'
 print('09 Days:', days_diff(sdt, edt))
 
 def prs(client_choice: str) -> bool:
@@ -161,42 +162,75 @@ def prs(client_choice: str) -> bool:
     сгенерировать случайный выбор на сервере
     реализовать игру в камень-ножницы-бумага между клиент-сервер
     """
-    chosen = random.randint(1,3)
+
+    chosen = random.randint(1, 3)
     if chosen == 1:
-        computer = 'Камень'
-        # computer = 'S'
+        computer = 1 #'Камень'
     elif chosen == 2:
-        computer = 'Ножницы'
-        # computer = 'K'
+        computer = 2 #'Ножницы'
     else:
-        computer = 'Бумага'
-        # computer = 'P'
+        computer = 3 #'Бумага'
 
     if client_choice == computer:
         result_return = 'Ничья!'
-    elif client_choice == 'Камень' and computer == 'Ножницы':
+    elif client_choice == 1 and computer == 2:
         result_return = 'Вы Выиграли!'
-    elif client_choice == 'Камень' and computer == 'Бумага':
+    elif client_choice == 1 and computer == 3:
         result_return = 'Вы проиграли!'
-    elif client_choice == 'Ножницы' and computer == 'Бумага':
+    elif client_choice == 2 and computer == 3:
         result_return = 'Вы Выиграли!'
-    elif client_choice == 'Ножницы' and computer == 'Камень':
+    elif client_choice == 2 and computer == 1:
         result_return = 'Вы проиграли!'
-    elif client_choice == 'Бумага' and computer == 'Камень':
+    elif client_choice == 3 and computer == 1:
         result_return = 'Вы выиграли!'
-    elif client_choice == 'Бумага' and computer == 'Ножницы':
+    elif client_choice == 3 and computer == 2:
         result_return = 'Вы проиграли!'
     else:
         return 'Выберите правельный вариант\n' \
-               '(S)Камень\n' \
-               '(K)Ножницы\n' \
-               '(P)Бумага\n'
+               '(1)Камень\n' \
+               '(2)Ножницы\n' \
+               '(3)Бумага\n'
 
-    return f'{result_return} \n' \
-           f'Игрок: {client_choice}\n' \
-           f'       VS\n' \
-           f'Компьютер: {computer}'
-print('10. КНБ:',prs('Камень'))
+    return result_return
+
+    # chosen = random.randint(1, 3)
+    # if chosen == 1:
+    #     computer = 'Камень'
+    # elif chosen == 2:
+    #     computer = 'Ножницы'
+    # else:
+    #     computer = 'Бумага'
+    #
+    # if client_choice == computer:
+    #     result_return = 'Ничья!'
+    # elif client_choice == 'Камень' and computer == 'Ножницы':
+    #     result_return = 'Вы Выиграли!'
+    # elif client_choice == 'Камень' and computer == 'Бумага':
+    #     result_return = 'Вы проиграли!'
+    # elif client_choice == 'Ножницы' and computer == 'Бумага':
+    #     result_return = 'Вы Выиграли!'
+    # elif client_choice == 'Ножницы' and computer == 'Камень':
+    #     result_return = 'Вы проиграли!'
+    # elif client_choice == 'Бумага' and computer == 'Камень':
+    #     result_return = 'Вы выиграли!'
+    # elif client_choice == 'Бумага' and computer == 'Ножницы':
+    #     result_return = 'Вы проиграли!'
+    # else:
+    #     return 'Выберите правельный вариант\n' \
+    #            '(S)Камень\n' \
+    #            '(K)Ножницы\n' \
+    #            '(P)Бумага\n'
+    #
+    # return f'{result_return} \n' \
+    #        f'Игрок: {client_choice}\n' \
+    #        f'       VS\n' \
+    #        f'Компьютер: {computer}'
+
+
+
+# здесть тоже на выходе bool если нужно перепишу,
+# и как определить True or False если результат ничья?
+print('10. КНБ:', prs(2))
 
 
 def integer_as_roman(integer: int) -> str:
@@ -223,7 +257,62 @@ def integer_as_roman(integer: int) -> str:
     i = i.replace("IIII", "IV") #4
 
     return i
-print('11. Roman Num:', integer_as_roman(19876))
-#
-# if name == 'main':
-#     assert encrypt_message('Dima') == 'Fkoc'
+print('11. Roman Num:', integer_as_roman(874))
+
+if __name__ == '__main__':
+    assert type(generate_password(1)) == str
+    assert len(generate_password(2)) == 2
+    assert len(generate_password(7)) == 7
+    assert len(generate_password(50)) == 50
+
+    assert type(encrypt_message('String')) == str
+    assert encrypt_message('Hello') == 'Jgnnq'
+    assert encrypt_message('World') == 'Yqtnf'
+    assert encrypt_message('Smile') == 'Uokng'
+    assert encrypt_message('Life') == 'Nkhg'
+    assert encrypt_message('Book') == 'Dqqm'
+
+    assert type(lucky_number("123456")) == bool
+    assert lucky_number("123321") == True
+    assert lucky_number("494980") == True
+    assert lucky_number("345544") == False
+    assert lucky_number("234264") == False
+
+    assert type(fizz_buzz(13)) == str
+    assert fizz_buzz(13) == '13'
+    assert fizz_buzz(25) == 'Buzz'
+    assert fizz_buzz(33) == 'Fizz'
+    assert fizz_buzz(15) == 'FizzBuzz'
+
+    assert number_is_prime(97) == True
+    assert number_is_prime(89) == True
+    assert number_is_prime(83) == True
+    assert number_is_prime(36) == False
+    assert number_is_prime(55) == False
+
+    assert type(decrypt_message('dfhgs')) == str
+    assert decrypt_message('Jgnnq') == 'Hello'
+    assert decrypt_message('Yqtnf') == 'World'
+    assert decrypt_message('Uokng') == 'Smile'
+    assert decrypt_message('Nkhg') == 'Life'
+    assert decrypt_message('Dqqm') == 'Book'
+
+    assert volume_of_sphere(10) == 4188.79
+    assert volume_of_sphere(12) == 7238.23
+    assert volume_of_sphere(3) == 113.1
+    assert volume_of_sphere(2.45) == 61.6
+    assert volume_of_sphere(1.13) == 6.04
+
+    assert days_diff('01-02-2009', '01-02-2010') == 365
+    assert days_diff('1-2-2009', '01-02-2010') == 365
+    assert days_diff('02-04-2009', '11-01-2021') == 4302
+    assert days_diff('01-01-2020', '01-01-2021') == 366
+    assert days_diff('02-04-2009', '02-04-2009') == 0
+
+    assert integer_as_roman(1) == 'I'
+    assert integer_as_roman(1986) == 'MCMLXXXVI'
+    assert integer_as_roman(99) == 'XCIX'
+    assert integer_as_roman(564) == 'DLXIV'
+    assert integer_as_roman(333) == 'CCCXXXIII'
+
+
