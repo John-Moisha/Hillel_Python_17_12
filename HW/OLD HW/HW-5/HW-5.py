@@ -52,7 +52,7 @@ def space():
 def users_list():
 
     try:
-        connection = sqlite3.connect('./db.sqlite3')
+        connection = sqlite3.connect('db.sqlite3')
         cursor = connection.cursor()
 
         cursor.execute("SELECT * FROM users;")
@@ -74,7 +74,7 @@ def users_create():
     ID = random.randint(1, 100_000)  #todo
 
     try:
-        connection = sqlite3.connect('./db.sqlite3')
+        connection = sqlite3.connect('db.sqlite3')
         cursor = connection.cursor()
 
         query = f"INSERT INTO users VALUES ({ID}, '{first_name}', '{last_name}', {is_student});"
@@ -91,7 +91,7 @@ def users_create():
 def phones_list():
 
     try:
-        connection = sqlite3.connect('./db.sqlite3')
+        connection = sqlite3.connect('db.sqlite3')
         cursor = connection.cursor()
 
         cursor.execute("SELECT * FROM phones;")
@@ -108,7 +108,7 @@ def phones_list():
 def users_phones():
 
     try:
-        connection = sqlite3.connect('./db.sqlite3')
+        connection = sqlite3.connect('db.sqlite3')
         cursor = connection.cursor()
 
         query = f"""
@@ -134,7 +134,7 @@ def emails_create():
     user_id = request.args['user_id']
 
     try:
-        connection = sqlite3.connect('./db.sqlite3')
+        connection = sqlite3.connect('db.sqlite3')
         cursor = connection.cursor()
 
         query = f"INSERT INTO emails VALUES (null, '{mail}', '{user_id}');"
@@ -150,7 +150,7 @@ def emails_create():
 def emails_list():
 
     try:
-        connection = sqlite3.connect('./db.sqlite3')
+        connection = sqlite3.connect('db.sqlite3')
         cursor = connection.cursor()
 
         cursor.execute("SELECT * FROM emails;")
@@ -168,7 +168,7 @@ def emails_update():
     user_id = request.args['user_id']
 
     try:
-        connection = sqlite3.connect('./db.sqlite3')
+        connection = sqlite3.connect('db.sqlite3')
         cursor = connection.cursor()
 
         query = f"" \
@@ -190,7 +190,7 @@ def emails_delete():
     user_id = request.args['user_id']
 
     try:
-        connection = sqlite3.connect('./db.sqlite3')
+        connection = sqlite3.connect('db.sqlite3')
         cursor = connection.cursor()
 
         query = f"" \
@@ -209,7 +209,7 @@ def emails_delete():
 def users_emails():
 
     try:
-        connection = sqlite3.connect('./db.sqlite3')
+        connection = sqlite3.connect('db.sqlite3')
         cursor = connection.cursor()
 
         query = f"""
