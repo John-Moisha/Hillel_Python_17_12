@@ -17,7 +17,7 @@ import debug_toolbar
 from django.contrib import admin
 from django.urls import path, include
 from books import views
-from accounts.views import MyProfileView
+from accounts.views import MyProfileView, ContactUsView, SignUpView, ActivateView
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
@@ -27,11 +27,10 @@ urlpatterns = [
     path('books/', include('books.urls')),
     # accounts
     path('accounts/my-profile/', MyProfileView.as_view(), name='my-profile'),
+    path('accounts/contact-us/', ContactUsView.as_view(), name='contact-us'),
+    path('accounts/signup/', SignUpView.as_view(), name='signup'),
+    path('accounts/activate/<uuid:username>/', ActivateView.as_view(), name='activate'),
 
-    # path('books/authors/create/', views.author_create, name='author-create'),
-    # path('books/authors/list/', views.authors_list, name='authors-list'),
-    # path('books/authors/update/<int:pk>/', views.author_update, name='author-update'),
-    # path('books/authors/delete/<int:pk>/', views.author_delete, name='author-delete'),
     path('logs/', views.LogsMW.as_view(), name='logs'),
     path('__debug__/', include(debug_toolbar.urls)),
 
